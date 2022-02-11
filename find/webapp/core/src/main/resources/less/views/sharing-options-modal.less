@@ -1,0 +1,47 @@
+/*
+ * (c) Copyright 2017 Micro Focus or one of its affiliates.
+ *
+ * Licensed under the MIT License (the "License"); you may not use this file
+ * except in compliance with the License.
+ *
+ * The only warranties for products and services of Micro Focus and its affiliates
+ * and licensors ("Micro Focus") are as may be set forth in the express warranty
+ * statements accompanying such products and services. Nothing herein should be
+ * construed as constituting an additional warranty. Micro Focus shall not be
+ * liable for technical or editorial errors or omissions contained herein. The
+ * information contained herein is subject to change without notice.
+ */
+
+.not-shared-with-list-container {
+  flex: 1;
+}
+
+.shared-with-list-container {
+  flex: 1;
+  border-right: 1px solid #e5e5e5;
+
+  .unshare-with-button {
+
+    i {
+      .absolute;
+
+      &.fa-close {
+        top: 9px;
+        left: 4px;
+      }
+
+      &.fa-share-alt {
+        top: 5px;
+      }
+    }
+  }
+
+  .can-edit-text {
+    font-size: @font-size-small;
+  }
+
+  .user-name-container {
+    flex: 1;
+  }
+}
+

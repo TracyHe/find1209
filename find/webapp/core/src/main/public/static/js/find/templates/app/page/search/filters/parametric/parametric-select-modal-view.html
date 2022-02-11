@@ -1,0 +1,16 @@
+<div class="tabs-left full-height row">
+    <div class="col-md-3 fields-list">
+        <ul class="nav nav-tabs minimal-tab" role="tablist">
+            <% fields.forEach(function(fieldData) { %>
+                <li class="full-width" data-field="<%-fieldData.id%>">
+                    <a href role="tab" class="tab-title full-width" >
+                        <span class="shorten inline-block full-width" data-toggle="tooltip" title="<%-fieldData.displayName%>"> <%-fieldData.displayName%></span>
+                    </a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+    <div class="col-md-9 values-list">
+        <div class="tab-content"></div>
+    </div>
+</div>

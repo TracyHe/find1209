@@ -1,0 +1,425 @@
+{
+  "login": {
+    "method": "default",
+    "community": {
+      "protocol": "HTTP",
+      "host": "localhost",
+      "port": 9030,
+      "productType": [
+        "UASERVER",
+        "DAH",
+        "IDOLPROXY"
+      ]
+    },
+    "name": "CommunityAuthentication"
+  },
+  "content": {
+    "protocol": "HTTP",
+    "host": "localhost",
+    "port": 9100,
+    "productType": [
+      "AXE",
+      "DAH",
+      "IDOLPROXY"
+    ]
+  },
+  "referenceField": "DREREFERENCE",
+  "queryManipulation": {
+    "server": {
+      "protocol": "HTTP",
+      "host": "localhost",
+      "port": 16000,
+      "productType": [
+        "QMS",
+        "DAH",
+        "IDOLPROXY"
+      ]
+    },
+    "typeAheadMode": "Index",
+    "expandQuery": true,
+    "synonymDatabaseMatch": true,
+    "explicitProfiling": true,
+    "blacklist": "ISO_BLACKLIST",
+    "enabled": false
+  },
+  "statsServer": {
+    "enabled": false,
+    "server": {
+      "protocol": "HTTP",
+      "host": "localhost",
+      "port": 19870,
+      "productType": [
+        "STATS",
+        "DAH",
+        "IDOLPROXY"
+      ]
+    }
+  },
+  "view": {
+    "protocol": "HTTP",
+    "host": "localhost",
+    "port": 9080,
+    "productType": [
+      "VIEW",
+      "IDOLPROXY",
+      "DAH"
+    ],
+    "referenceField": "DREREFERENCE",
+    "viewingMode": "FIELD",
+    "connector": {
+      "protocol": "HTTP",
+      "host": "localhost",
+      "port": 10000,
+      "productTypeRegex": ".*?CONNECTOR"
+    },
+    "highlighting": true
+  },
+  "answerServer": {
+    "server": {
+      "protocol": "HTTP",
+      "host": "localhost",
+      "port": 7700,
+      "productType": [
+        "ANSWERSERVER"
+      ]
+    },
+    "enabled": false
+  },
+  "communityAgentStore": {
+    "enabled": false,
+    "server": {
+      "protocol": "HTTP",
+      "host": "localhost",
+      "port": 9050,
+      "productType": ["AXE"]
+    }
+  },
+  "entitySearch": {
+    "server": {
+      "protocol": "HTTP",
+      "host": "localhost",
+      "port": 9050,
+      "productType": [
+        "AXE",
+        "DAH",
+        "IDOLPROXY"
+      ]
+    },
+    "agentBooleanField": "AGENTBOOL",
+    "combine": "FieldCheck",
+    "enabled": false,
+    "idolPrintFields": [ "WIKIPEDIA_ENG", "WIKIPEDIA_IMAGE", "PERSON_DATE_OF_BIRTH", "PERSON_DATE_OF_DEATH", "PERSON_PROFESSION", "WIKIPEDIA_IMAGE", "LAT", "LON", "PLACE_COUNTRY_CODE", "PLACE_REGION1", "PLACE_POPULATION", "PLACE_TIMEZONE", "WIKIPEDIA_IMAGE", "URL_HOMEPAGE", "COMPANY_GOOGLE" ],
+    "answerServer": {
+      "server": {
+        "protocol": "HTTP",
+        "host": "localhost",
+        "port": 7700,
+        "productType": [
+          "ANSWERSERVER"
+        ]
+      },
+      "enabled": false
+    },
+    "answerServerDatabaseMatch": "Wikipedia",
+    "answerServerContentField": "DRECONTENT",
+    "answerServerTimeoutSecs": -1.0,
+    "databaseChoices": null,
+    "databaseChoicesVisible": true
+  },
+  "controlPoint": {
+    "enabled": false,
+    "server": {
+      "protocol": "HTTPS",
+      "host": "localhost",
+      "port": 80,
+      "basePath": "/WebApi/api"
+    }
+  },
+  "savedSearches": {
+    "pollForUpdates": true,
+    "pollingInterval": 5
+  },
+  "sunburst": {
+    "allowMultipleDatabases": true
+  },
+  "map": {
+    "enabled": false,
+    "attribution": null,
+    "initialLocation": {
+      "latitude": 51.5074,
+      "longitude": 0.1278
+    },
+    "tileUrlTemplate": null,
+    "resultsStep": 2500,
+    "locationFields": [
+      {
+        "displayName": "DefaultLocation",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "iconName": "hp-record",
+        "iconColor": "white",
+        "markerColor": "blue"
+      }
+    ]
+  },
+  "messageOfTheDay": {
+    "message": null,
+    "status": "text-info"
+  },
+  "trending" : {
+    "dateField" : "AUTN_DATE",
+    "numberOfValues": 10,
+    "defaultNumberOfBuckets": 20,
+    "minNumberOfBuckets": 3,
+    "maxNumberOfBuckets": 100
+  },
+  "themeTracker": {
+    "enabled": true,
+    "category": {
+      "protocol": "HTTP",
+      "host": "10.2.21.236",
+      "port": 19120,
+      "productType": [
+        "CLASSSERVER",
+        "DAH",
+        "IDOLPROXY"
+      ]
+    },
+    "databaseNames": ["News"],
+    "minScore": 50,
+    "jobName": "BLACK_MDN_EVERYTHING_SG"
+  },
+  "export": {
+    "powerpoint": {
+      "templateFile": ""
+    }
+  },
+  "mmap": {
+    "enabled": false,
+    "baseUrl": ""
+  },
+  "uiCustomization": {
+    "options": {
+      "enableDashboards": {
+        "user": false,
+        "bi": true
+      },
+      "enableMetaFilter": {
+        "user": false,
+        "bi": true
+      },
+      "enableRelatedConcepts": {
+        "user": true,
+        "bi": false
+      },
+      "enableSavedSearch": {
+        "user": false,
+        "bi": true
+      },
+      "enableSideBar": {
+        "user": false,
+        "bi": true
+      },
+      "enableTypeAhead": {
+        "user": true,
+        "bi": true
+      },
+      "resultViewOrder": {
+        "bi": [
+          "topic-map",
+          "list",
+          "sunburst",
+          "trending",
+          "table",
+          "map",
+          "recommendation"
+        ],
+        "user": [
+          "list"
+        ]
+      }
+    },
+    "defaultDeselectedDatabases": [],
+    "filterOrder": ["metaFilter", "indexesFilter", "datesFilter", "geographyFilter", "documentSelectionFilter", "-", "parametricFilter"],
+    "listViewPagingSize": 30,
+    "openSharedDashboardQueryAsNewSearch": false,
+    "parametricNeverShow": [],
+    "parametricAlwaysShow": [],
+    "parametricOrder": [],
+    "parametricValuesSort": "DocumentCount",
+    "specialUrlPrefixes": {
+      "application/msword": "ms-word:ofv|u|",
+      "application/mspowerpoint": "ms-powerpoint:ofv|u|",
+      "application/vnd.ms-powerpoint": "ms-powerpoint:ofv|u|",
+      "application/msexcel": "ms-excel:ofv|u|",
+      "application/vnd.ms-excel": "ms-excel:ofv|u|",
+      "application/vnd.visio": "ms-visio:ofv|u|",
+      "application/msaccess": "ms-access:ofv|u|",
+      "application/x-msaccess": "ms-access:ofv|u|",
+      "application/msproject": "ms-project:ofv|u|",
+      "application/vnd.ms-project": "ms-project:ofv|u|",
+      "application/x-mspublisher": "ms-publisher:ofv|u|"
+    },
+    "errorCallSupportString": null,
+    "previewWhitelistUrls": {
+      "^(https?://)?www\\.youtube(-nocookie)?\\.com/embed/.*": "<iframe class=\"preview-document-frame\" allow=\"autoplay; encrypted-media\" allowfullscreen src=\"<%-reference%>\">",
+      "^(https?://)?www\\.facebook\\.com/plugins/.*" : "<iframe class=\"preview-document-frame\" allow=\"autoplay; encrypted-media\" allowfullscreen src=\"<%-reference%>\">",
+      "^(https?://)?video\\.xx\\.fbcdn\\.net/.*" : "<iframe class=\"preview-document-frame\" allow=\"autoplay; encrypted-media\" allowfullscreen src=\"<%-reference%>\">",
+      "^(https?:\\/\\/)?www.youtube.com\\/watch(.*?)[?&]v=([^&?]+)(.*)": "<iframe class=\"preview-document-frame\" allow=\"autoplay; encrypted-media\" allowfullscreen src=\"https://www.youtube-nocookie.com/embed/<%-match[3]%>?<%-match[2]%><%-match[4]%>\">"
+    },
+    "profile": {
+      "intentBasedRanking": false,
+      "highlightTerms": true,
+      "maxProfiles": 3,
+      "maxResultsPerProfile": 2,
+      "maxTerms": 30,
+      "updateProfileOnView": false
+    }
+  },
+  "search": {
+    "defaultSortOption": "relevance",
+    "sortOptions": {
+      "relevance": { "sort": "relevance", "label": null },
+      "date": { "sort": "date", "label": null },
+      "reverseDate": { "sort": "reversedate", "label": null }
+    }
+  },
+  "users": {
+    "relatedUsers": {
+      "enabled": false,
+      "interests": {
+        "agentStoreProfilesDatabase": "profile",
+        "namedArea": "default",
+        "userDetailsFields": []
+      },
+      "expertise": {
+        "agentStoreProfilesDatabase": "profile",
+        "namedArea": "experts",
+        "userDetailsFields": []
+      }
+    }
+  },
+  "combineMethod": "Simple",
+  "minScore": 0,
+  "topicMapMaxResults": 1000,
+  "documentSummaryMaxLength": 250,
+  "idolFieldPathNormalizerXMLPrefixes": ["DOCUMENTS"],
+  "fieldsInfo": {
+    "contentType": {
+      "names": [
+        "AU_REPOSITORY_METADATA_TYPE_STRING",
+        "REPOSITORY_METADATA_TYPE_STRING"
+      ]
+    },
+    "url": {
+      "names": [
+        "AU_REPOSITORY_METADATA_URL_FILE_STRING",
+        "REPOSITORY_METADATA_URL_FILE_STRING"
+      ]
+    },
+    "offset": {
+      "names": [
+        "OFFSET"
+      ],
+      "advanced": true
+    },
+    "authors": {
+      "names": [
+        "AU_DOCUMENT_METADATA_AUTHOR_STRING",
+        "DOCUMENT_METADATA_AUTHOR_STRING"
+      ]
+    },
+    "categories": {
+      "names": [
+        "AU_REPOSITORY_METADATA_CATEGORY_STRING",
+        "REPOSITORY_METADATA_CATEGORY_STRING"
+      ]
+    },
+    "dateCreated": {
+      "names": [
+        "AU_DOCUMENT_METADATA_DATE_CREATED_EPOCHSECONDS",
+        "DOCUMENT_METADATA_DATE_CREATED_EPOCHSECONDS"
+      ],
+      "type": "Date"
+    },
+    "dateModified": {
+      "names": [
+        "AU_DOCUMENT_METADATA_DATE_MODIFIED_EPOCHSECONDS",
+        "DOCUMENT_METADATA_DATE_MODIFIED_EPOCHSECONDS"
+      ],
+      "type": "Date"
+    },
+    "mmapEventSourceType": {
+      "names": [
+        "MMAP_EVENT_SOURCE_TYPE"
+      ],
+      "advanced": true
+    },
+    "mmapEventSourceName": {
+      "names": [
+        "MMAP_EVENT_SOURCE_NAME"
+      ],
+      "advanced": true
+    },
+    "mmapEventTime": {
+      "names": [
+        "MMAP_EVENT_TIME"
+      ],
+      "advanced": true
+    },
+    "mmapUrl": {
+      "names": [
+        "MMAP_PROXY_URL"
+      ],
+      "advanced": true
+    },
+    "thumbnail": {
+      "advanced": true,
+      "names": [
+        "PREVIEW_THUMBNAIL_BASE64"
+      ]
+    },
+    "thumbnailUrl": {
+      "names": [
+        "THUMBNAIL_URL"
+      ],
+      "advanced": true
+    },
+    "sourceType": {
+      "names": [
+        "SOURCETYPE"
+      ],
+      "advanced": true
+    },
+    "transcript": {
+      "names": [
+        "TRANSCRIPTION_CONTENT"
+      ],
+      "advanced": true
+    },
+    "latitude": {
+      "names": [
+        "NODE_PLACE/LAT",
+        "LAT"
+      ],
+      "type": "NUMBER",
+      "advanced": true
+    },
+    "longitude": {
+      "names": [
+        "NODE_PLACE/LON",
+        "LON"
+      ],
+      "type": "NUMBER",
+      "advanced": true
+    },
+    "facts": {
+      "names": [
+        "FACTS/*",
+        "FACTS"
+      ],
+      "type": "RECORD",
+      "advanced": true
+    }
+  }
+}

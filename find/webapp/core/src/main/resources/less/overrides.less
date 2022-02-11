@@ -1,0 +1,136 @@
+/*
+ * (c) Copyright 2017 Micro Focus or one of its affiliates.
+ *
+ * Licensed under the MIT License (the "License"); you may not use this file
+ * except in compliance with the License.
+ *
+ * The only warranties for products and services of Micro Focus and its affiliates
+ * and licensors ("Micro Focus") are as may be set forth in the express warranty
+ * statements accompanying such products and services. Nothing herein should be
+ * construed as constituting an additional warranty. Micro Focus shall not be
+ * liable for technical or editorial errors or omissions contained herein. The
+ * information contained herein is subject to change without notice.
+ */
+
+//
+// This file contains overrides for commit-dependent various file paths found in libraries
+//
+
+//
+// Font Awesome
+//
+
+@fa-font-path:  "@{staticResourcesPath}/bower_components/fontawesome/fonts";
+
+//
+// Leaflet
+//
+
+.leaflet-control-layers-toggle {
+  background-image: url('@{staticResourcesPath}/bower_components/leaflet/dist/images/layers.png');
+}
+
+.leaflet-retina .leaflet-control-layers-toggle {
+  background-image: url('@{staticResourcesPath}/bower_components/Leaflet/dist/images/layers-2x.png');
+}
+
+.leaflet-default-icon-path {
+  background-image: url('@{staticResourcesPath}/bower_components/Leaflet/dist/images/marker-icon.png');
+}
+
+.awesome-marker {
+  background-image: url('@{staticResourcesPath}/bower_components/Leaflet.awesome-markers/dist/images/markers-soft.png');
+}
+
+.awesome-marker-shadow {
+  background-image: url('@{staticResourcesPath}/bower_components/Leaflet.awesome-markers/dist/images/markers-shadow.png');
+}
+
+//
+// HPE Elements HPEIcons.less
+//
+
+//
+// HPE Elements typography.less
+//
+
+//
+//HPE Elements navigation.less
+//
+
+.hidden-navbar, .hide-navbar {
+  .nav-menu-btn-container {
+    // Override the position: fixed which makes the top-left logo scroll down with the screen on the settings page.
+    position: static;
+    // And prevent the scroll bar which appears on mouseover on the logo
+    overflow-y: hidden;
+  }
+}
+
+//
+//HPE Elements controls.less
+//
+.icheckbox-hp,
+.iradio-hp {
+  background-image: url('@{staticResourcesPath}/img/blue_checkboxes.png');
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+  .icheckbox-hp,
+  .iradio-hp {
+    background-image: url('@{staticResourcesPath}/img/blue@2x_checkboxes.png');
+  }
+}
+
+//===============================
+// multi-select-checkbox styling
+//===============================
+
+.multi-select-checkbox {
+  background-image: url('@{staticResourcesPath}/img/blue_checkboxes.png');
+}
+
+/* @group Single Chosen */
+.chosen-container-single .chosen-single abbr {
+  background-image: url('@{staticResourcesPath}/img/chosen-sprite.png');
+}
+
+.chosen-container-single .chosen-single div b {
+  background-image: url('@{staticResourcesPath}/img/chosen-sprite.png');
+}
+
+.chosen-container-single .chosen-search input[type="text"] {
+  background-image: url('@{staticResourcesPath}/img/chosen-sprite.png');
+}
+
+/* @end */
+/* @group Results */
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+  background-image: url('@{staticResourcesPath}/img/chosen-sprite.png');
+}
+
+/* @end */
+/* @group Disabled Support */
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) {
+  .chosen-rtl .chosen-search input[type="text"],
+  .chosen-container-single .chosen-single abbr,
+  .chosen-container-single .chosen-single div b,
+  .chosen-container-single .chosen-search input[type="text"],
+  .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
+  .chosen-container .chosen-results-scroll-down span,
+  .chosen-container .chosen-results-scroll-up span {
+    background-image: url('@{staticResourcesPath}/img/chosen-sprite@2x.png') !important;
+  }
+}
+
+/* Additional styles to display a spinner image while options are loading */
+.localytics-chosen.loading + .chosen-container-multi .chosen-choices {
+  background-image: url('@{staticResourcesPath}/img/spinner.gif');
+}
+
+.localytics-chosen.loading + .chosen-container-single .chosen-single span {
+  background-image: url('@{staticResourcesPath}/img/spinner.gif');
+}
+
+/* @end */

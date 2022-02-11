@@ -1,0 +1,6 @@
+{{! renders a summary for facts from AnswerServerController.getEntityFacts }}
+<ul class="list-unstyled">
+{{#each facts}}
+    <li class="fact-sentence" data-factid="{{fact.source}}">{{documents.[0].sentence}}</li>
+{{/each}}
+</ul>
