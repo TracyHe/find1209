@@ -21,9 +21,11 @@ define([
     'find/app/util/view-server-client',
     'find/app/page/search/document/document-preview-helper',
     'i18n!find/nls/bundle',
+    'jquery',
+    'rating',
     'text!find/templates/app/page/search/document/document-detail-content-view.html'
-], function(_, Backbone, tabs, events, urlManipulator, viewClient, DocumentPreviewHelper, i18n,
-            template) {
+], function(_, Backbone, tabs, events, urlManipulator, viewClient, DocumentPreviewHelper, i18n
+            ,jquery,rating,template) {
     'use strict';
 
     return Backbone.View.extend({
@@ -36,6 +38,10 @@ define([
             },
             'click .document-detail-mmap-button': function() {
                 this.mmapTab.open(this.documentModel.attributes);
+            },
+            'click.toggle-more-text' : function(){
+                //tracy work on this
+
             },
             'shown.bs.tab a[data-toggle=tab]': function(event) {
                 const tab = this.tabs[$(event.target).parent().index()];
@@ -50,9 +56,11 @@ define([
             this.documentModel = options.documentModel;
 
             this.tabs = this.filterTabs(tabs);
+
         },
 
         render: function() {
+
             const url = this.documentModel.get('url');
             const documentHref = url
                 ? urlManipulator.addSpecialUrlPrefix(

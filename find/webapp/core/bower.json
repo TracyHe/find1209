@@ -62,7 +62,8 @@
     "dropzone": "4.3.0",
     "bootstrap": "3.3.7",
     "moment-timezone": "0.5.11",
-    "uuid.js": "4.2.6"
+    "uuid.js": "4.2.6",
+    "jquery-bar-rating": "^1.2.2"
   },
   "devDependencies": {
     "hp-autonomy-js-testing-utils": "2.2.0",

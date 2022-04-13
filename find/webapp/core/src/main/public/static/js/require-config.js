@@ -54,6 +54,7 @@ require.config({
         topicmap: '../bower_components/hp-autonomy-topic-map/src',
         underscore: '../bower_components/underscore/underscore',
         typeahead: '../bower_components/corejs-typeahead/dist/typeahead.jquery',
+        rating: '../bower_components/jquery-bar-rating/dist/jquery.barrating.min',
         uuidjs: '../bower_components/uuid.js/src/uuid'
     },
     shim: {
@@ -89,6 +90,9 @@ require.config({
         'leaflet': ['leaflet.notransform'],
         uuidjs: {
             exports: 'UUID'
+        },
+        rating: {
+            exports: "rating"
         }
     }
 });
