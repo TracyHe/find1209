@@ -10,20 +10,23 @@
 			<%-i18n['search.preview.mmap']%>
 		</button>
 		<% } %>
-		<span class="toggle-more-text text-muted">Rating</span>
-        <select id="example-fontawesome" name="rating" autocomplete="off">
+		<div class="stars stars-example-fontawesome-o">
+		<select id="example-fontawesome-o" name="rating" data-current-rating="2.6" autocomplete="off">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
-		<script>
-			$('#example-fontawesome').barrating({
-				theme: 'fontawesome-stars',
-				showSelectedRating: false
-			});
-		</script>
+		<span class="title current-rating">
+			  Current rating: <span class="value"></span>
+			</span>
+		<span class="title your-rating hidden">
+			  Your rating: <span class="value"></span>&nbsp;
+			  <a href="#" class="clear-rating"><i class="fa fa-times-circle"></i></a>
+		</span>
+		</div>
+
 	</div>
 </div>
 <div class="row m-t-lg">

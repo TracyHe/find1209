@@ -39,9 +39,20 @@ define([
             'click .document-detail-mmap-button': function() {
                 this.mmapTab.open(this.documentModel.attributes);
             },
-            'click.toggle-more-text' : function(){
+            'change.example-fontawesome-o' : function(value, text, event){
                 //tracy work on this
+                if (typeof(event) !== 'undefined') {
+                      // rating was selected by a user
+                      console.log('undefined event');
+                      console.log(event.target);
 
+                    } else {
+                      // rating was selected programmatically
+                      // by calling `set` method
+                      console.log('by calling `set` method-1');
+                      console.log(text);
+                      console.log('by calling `set` method-2');
+                    }
             },
             'shown.bs.tab a[data-toggle=tab]': function(event) {
                 const tab = this.tabs[$(event.target).parent().index()];
@@ -75,7 +86,45 @@ define([
                 tabs: this.tabs,
                 mmap: this.mmapTab.supported(this.documentModel.attributes)
             }));
+            var currentRating = $('#example-fontawesome-o').data('current-rating');
+            $('.stars-example-fontawesome-o .current-rating')
+                        .find('span')
+                        .html(currentRating);
 
+                    $('.stars-example-fontawesome-o .clear-rating').on('click', function(event) {
+                        event.preventDefault();
+
+                        $('#example-fontawesome-o')
+                            .barrating('clear');
+                    });
+
+                    $('#example-fontawesome-o').barrating({
+                        theme: 'fontawesome-stars-o',
+                        showSelectedRating: false,
+                        initialRating: currentRating,
+                        onSelect: function(value, text) {
+                            if (!value) {
+                                $('#example-fontawesome-o')
+                                    .barrating('clear');
+                            } else {
+                                $('.stars-example-fontawesome-o .current-rating')
+                                    .addClass('hidden');
+
+                                $('.stars-example-fontawesome-o .your-rating')
+                                    .removeClass('hidden')
+                                    .find('span')
+                                    .html(value);
+                            }
+                        },
+                        onClear: function(value, text) {
+                            $('.stars-example-fontawesome-o')
+                                .find('.current-rating')
+                                .removeClass('hidden')
+                                .end()
+                                .find('.your-rating')
+                                .addClass('hidden');
+                        }
+                    });
             this.renderDocument();
             this.renderTabContent();
         },
