@@ -1,12 +1,5 @@
-<div class="stars stars-example-fontawesome-o" >
-    <select id="example-fontawesome-o-<%-cid %>" name="rating" select-data-cid="<%-cid %>" data-current-rating="2.6" autocomplete="off">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-</div>
-<div class="main-results-container" data-cid="<%-cid %>"><%=content%></div>
+<div class="main-results-container" data-cid="<%-cid %>">
+    <input id="rating-input-id-<%-cid %>" select-data-id="<%-cid %>" type="text" class="rating" data-stars="5" data-step="0.1" title="">
+    <%=content%></div>
 
 

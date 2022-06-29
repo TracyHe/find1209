@@ -1,6 +1,8 @@
 package com.hp.autonomy.frontend.find.core.rating;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +22,20 @@ public class RatingController {
 
     @RequestMapping(value = "/rating",  method = RequestMethod.POST)
     @ResponseBody
-    public int CreateUserRating(@RequestBody Rating ur)
+
+    public ResponseEntity<String> CreateUserRating(@RequestBody Rating ur)
     {
         ratingService = new RatingService();
 
-        return ratingService.CreateUserRating(ur);
+        int id = ratingService.CreateUserRating(ur);
+
+        if(id==0){
+            return new ResponseEntity<>(
+                    "Duplicated Ratings",
+                    HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity<>(
+                    "Rating Successfully",  HttpStatus.CREATED);
+        }
     }
 }

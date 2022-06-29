@@ -12,13 +12,13 @@ return Backbone.Model.extend({
     },
 
     initialize: function () {
-        console.log('Rating has been initialized');
+
         this.on("invalid", function (model, error) {
             console.log("Houston, we have a problem: " + error)
         });
     },
     constructor: function (attributes, options) {
-        console.log('Rating\'s constructor had been called');
+
         Backbone.Model.apply(this, arguments);
     },
     validate: function (attr) {
@@ -26,6 +26,6 @@ return Backbone.Model.extend({
             return "Invalid username supplied."
         }
     },
-    urlRoot: 'http://localhost:8080/api/public/rating'
+    urlRoot: '../api/public/rating'
 });
 });

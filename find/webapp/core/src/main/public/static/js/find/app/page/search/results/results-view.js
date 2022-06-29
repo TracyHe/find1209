@@ -32,13 +32,14 @@ define([
     'text!find/templates/app/page/search/results/results-view.html',
     'text!find/templates/app/page/loading-spinner.html',
     'moment',
-    'rating',
+    'bootstraprating',
+    'krajeesvg',
     'find/app/model/userrating',
     'i18n!find/nls/bundle',
     'i18n!find/nls/indexes'
 ], function(_, $, Backbone, addChangeListener, vent, DocumentModel, PromotionsCollection, IntentBasedRankingView, SortView, ResultsNumberView,
             viewClient, events, addLinksToSummary, configuration, generateErrorHtml, resultTemplate, template,
-            loadingSpinnerTemplate, moment,rating,userrating, i18n, i18n_indexes) {
+            loadingSpinnerTemplate, moment,bootstraprating,krajeesvg,userrating, i18n, i18n_indexes) {
     'use strict';
 
     let SCROLL_INCREMENT;
@@ -75,7 +76,6 @@ define([
         template: _.template(template),
         messageTemplate: _.template('<div class="result-message span10"><%-message%></div>'),
         resultTemplate: _.template(resultTemplate),
-        
 
         events: {
             'click .preview-mode [data-cid]:not(.answered-question)': function(e) {
@@ -176,44 +176,8 @@ define([
             },
             'click .end-document-selection-button': function () {
                 this.queryModel.set('editingDocumentSelection', false);
-            },
-            'change.example-fontawesome-o' : function(value, text, event){
-                            //tracy work on this
-                            if (typeof(event) !== 'undefined') {
-                                  // rating was selected by a user
-                                  console.log('undefined event');
-                                  console.log(event.target);
+            }
 
-                                } else {
-
-                                  // rating was selected programmatically
-                                  // by calling `set` method
-                                    console.log('by calling `set` method-1');
-                                    var currentRating = 0;
-                                    var username = $('.navbar-username').text();
-                                    var docreferenceid = this.documentModel.get('url');
-                                    var uratingv = $( "#example-fontawesome-o option:selected" ).text();
-                                    console.log(username+docreferenceid+urating);
-                                    var urating = new userrating({"username": username,"docreferenceid": docreferenceid,"rating": uratingv});
-                                    urating.save({}, {
-                                        success: function (model, respose, options) {
-                                            console.log("The model has been saved to the server");
-                                        },
-                                        error: function (model, xhr, options) {
-                                            console.log("Something went wrong while saving the model");
-                                        }
-                                    });
-                                    $('example-fontawesome-o').barrating('readonly', true);
-                                    $('.stars-example-fontawesome-o .current-rating')
-                                        .addClass('hidden');
-
-                                    $('.stars-example-fontawesome-o .your-rating')
-                                        .removeClass('hidden')
-                                        .find('span')
-                                        .html(uratingv);
-                                    console.log('by calling `set` method-2');
-                                }
-                        }
         },
 
         initialize: function(options) {
@@ -323,16 +287,16 @@ define([
             }
 
             if (this.showPromotions) {
-               console.log('step 2');
+
                 this.listenTo(this.promotionsCollection, 'add', function(model) {
                     if (this.documentRenderer.loadPromise.state() === 'resolved') {
-                        console.log('step 3');
+
                         this.formatResult(model, true);
                     }
                 });
 
                 this.listenTo(this.promotionsCollection, 'sync', function() {
-                    console.log('step 4');
+
                     this.loadingTracker.promotionsFinished = true;
                     this.clearLoadingSpinner();
                 });
@@ -350,7 +314,7 @@ define([
 
             this.listenTo(this.documentsCollection, 'add', function(model) {
                 if (this.documentRenderer.loadPromise.state() === 'resolved') {
-                           console.log('step 1');
+
                            this.formatResult(model, false);
                 }
             });
@@ -370,20 +334,6 @@ define([
             this.listenTo(this.documentsCollection, 'reset', updateDocsDisplay);
 
             this.listenTo(this.documentsCollection, 'sync', function() {
-                console.log('step 5');
-                /*
-                this.documentsCollection.each(function(model) {
-                var selector="example-fontawesome-o-"+model.cid;
-                  console.log(selector+$("#"+selector).size());
-                  $("#"+selector).barrating({
-                  theme: 'fontawesome-stars-o',
-                  showSelectedRating: true});
-
-                   var currentdata = this.getRating(model);
-
-                   $("#"+selector).barrating('set', currentdata)
-                 }*/
-
 
                 this.loadingTracker.resultsFinished = true;
                 this.clearLoadingSpinner();
@@ -418,20 +368,16 @@ define([
                 this.$('.main-results-content').addClass('document-detail-mode');
             }
             var currentRating=0;
+
             this.documentRenderer.loadPromise
                 .done(function() {
                     this.documentsCollection.each(function(model) {
                            this.formatResult(model, false);
-
-
-
                     }.bind(this));
 
                     if (this.showPromotions) {
                         this.promotionsCollection.each(function(model) {
                            this.formatResult(model, false);
-
-
                         }.bind(this));
                     }
                 }.bind(this))
@@ -528,38 +474,20 @@ define([
             }
         },
 
-        formatRating: function(model) {
-            var request = $.ajax({
-              url: "http://localhost:8080/api/public/rating?docreferenceid="+model.get('url'),
-              async: false
-            });
+        getBootstrapRating: function(model){
+                           $.ajax({
+                                url: "../api/public/rating?docreferenceid="+model.get('url'),
+                                async: false
+                            }).complete(function(data) {
+                                var rating=parseInt(data.responseText);
 
-            request.done(function( data ) {
-             console.log('data:'+data);
-             currentRating=data;
-                 $('#example-fontawesome-o').barrating({
-                     theme: 'fontawesome-stars-o',
-                     showSelectedRating: true,
-                     initialRating: currentRating});
-            });
+                                var selector="rating-input-id-"+model.cid;
+                                $("#"+selector).rating('update', rating);
 
-            request.fail(function( jqXHR, textStatus ) {
-              alert( "Request failed: " + textStatus );
-            });
+                                return data.responseText;
+                            });
         },
-        getRating: function(model){
-            $.ajax({
-                    url: "http://localhost:8080/api/public/rating?docreferenceid="+model.get('url'),
-                    async: false
-                }).complete(function(data) {
-                  var rating=parseInt(data.responseText);
-                  console.log('value'+rating);
-                  var selector="example-fontawesome-o-"+model.cid;
-                  console.log(selector+$("#"+selector).size());
-                  $("#"+selector).barrating('set', rating);
-                  return data.responseText;
-                });
-        },
+
         formatResult: function(model, isPromotion) {
             var currentRating = 0;
             const resultHtml = isPromotion
@@ -583,17 +511,40 @@ define([
                    }
                }
 
-                  $el.append($newDoc);
-                  var selector="example-fontawesome-o-"+model.cid;
-                  //console.log(selector+$("#"+selector).size());
-                  $("#"+selector).barrating({
-                  theme: 'fontawesome-stars-o',
-                  showSelectedRating: true});
+                $el.append($newDoc);
+                //this.getRating(model);
+                this.getBootstrapRating(model)
+                var selector="rating-input-id-"+model.cid;
+                $("#"+selector).on('rating:change', function(event, value, caption) {
+                   var cid = event.target.getAttribute('select-data-id');
+                   const $target = $(event.target);
+                   const $result = $(event.currentTarget).closest('.main-results-container');
 
-                  var currentdata = this.getRating(model);
-                  //console.log('set rating value:'+currentdata)
-                  //$("#"+selector).barrating('set', currentdata);
+                   var docreferenceid = $result.find('.document-reference').text();
+                   var username = ($('.navbar-username').text()).trim();
+                   var oriRating =  $("#"+selector).rating().val();
+                   console.log('original rating'+oriRating)
+                    var urating = new userrating({"username": username,"docreferenceid": docreferenceid,"rating": Number(value)});
+                    urating.save({}, {
+                        success: function (model, respose, options) {
+                            console.log(response.status);
+                            $("#"+selector).rating("refresh", {disabled:true, showClear:false});
+                        },
+                        error: function (model, xhr, options) {
+                        console.log('return:'+xhr.status);
+                            if (xhr.status==201)
+                            {
+                              $("#"+selector).rating("refresh", {disabled:true, showClear:false});
+                            }else{
+                              $("#"+selector).rating("update",Number(oriRating));
+                              $("#"+selector).rating("refresh", {disabled:true, showClear:false});
+                              alert("You Rated this document before, only one Rating for one document!");
+                            }
 
+
+                        }
+                    });
+                });
         },
 
         /**

@@ -54,8 +54,9 @@ require.config({
         topicmap: '../bower_components/hp-autonomy-topic-map/src',
         underscore: '../bower_components/underscore/underscore',
         typeahead: '../bower_components/corejs-typeahead/dist/typeahead.jquery',
-        rating: '../bower_components/jquery-bar-rating/dist/jquery.barrating.min',
-        uuidjs: '../bower_components/uuid.js/src/uuid'
+        uuidjs: '../bower_components/uuid.js/src/uuid',
+        bootstraprating: '../bower_components/bootstrap-star-rating/js/star-rating',
+        krajeesvg: '../bower_components/bootstrap-star-rating/themes/krajee-svg/theme'
     },
     shim: {
         'backbone': {
@@ -91,8 +92,11 @@ require.config({
         uuidjs: {
             exports: 'UUID'
         },
-        rating: {
-            exports: "rating"
-        }
+        bootstraprating: {
+            exports: "bootstraprating"
+        },
+        krajeesvg: {
+                    exports: "krajee-svg"
+                }
     }
 });

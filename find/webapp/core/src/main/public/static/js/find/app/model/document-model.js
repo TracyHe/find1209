@@ -180,7 +180,7 @@ define([
             response.media = getMediaType(response.contentType);
 
             response.authors = getFieldValues(response.fieldMap.authors);
-
+            //response.uuid = getFiledValue(response.fieldMap.uuid);
             response.fields = _.chain(response.fieldMap)
                 .map(function(fieldData) {
                     return _.defaults({
