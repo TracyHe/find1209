@@ -34,7 +34,7 @@ public class RatingService {
         return rat;
     }
 
-    private boolean RatingExist(String url, String username)
+    private boolean RatingExist(String url, String username,Connection connection)
     {
         boolean exist = false;
         PreparedStatement prsmt = null;
@@ -42,7 +42,7 @@ public class RatingService {
         try {
 
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(url,username,password);
+            connection = DriverManager.getConnection(this.url,this.username,password);
             prsmt = connection.prepareStatement(query);
             prsmt.setString(1,url);
             prsmt.setString(2,username);
@@ -69,19 +69,30 @@ public class RatingService {
     }
     public int CreateUserRating(Rating uRating)
     {
-        boolean ratingExit = this.RatingExist(uRating.getDocreferenceid(),uRating.getUsername());
         int candidatedId = 0;
-        if(ratingExit) {
-            return candidatedId;
-        }else {
-
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(url, username, password);
+            boolean ratingExit = this.RatingExist(uRating.getDocreferenceid(),uRating.getUsername(),connection);
             PreparedStatement prsmt = null;
-
             ResultSet rs = null;
-            try {
-                Class.forName("org.postgresql.Driver");
-                connection = DriverManager.getConnection(url, username, password);
+            if(ratingExit) {
+                String query = "UPDATE ratings SET rating = ? WHERE docreferenceid = ? and username = ?";
+                prsmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                prsmt.setFloat(1, uRating.getRating());
+                prsmt.setString(2, uRating.getDocreferenceid());
+                prsmt.setString(3, uRating.getUsername());
 
+                int rowAffected = prsmt.executeUpdate();
+                if (rowAffected == 1) {
+                    rs = prsmt.getGeneratedKeys();
+                    if (rs.next())
+                        candidatedId = rs.getInt("id");
+                }
+                rs.close();
+                prsmt.close();
+                connection.close();
+            }else{
                 String query = "INSERT INTO ratings (docreferenceid, username, rating) VALUES(?, ?, ?)";
                 prsmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                 prsmt.setString(1, uRating.getDocreferenceid());
@@ -98,12 +109,15 @@ public class RatingService {
                 rs.close();
                 prsmt.close();
                 connection.close();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return candidatedId;
     }
+
 }

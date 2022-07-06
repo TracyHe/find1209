@@ -482,7 +482,11 @@ define([
                                 var rating=parseInt(data.responseText);
 
                                 var selector="rating-input-id-"+model.cid;
+
+                                $("#"+selector).rating({showClear:false});
+
                                 $("#"+selector).rating('update', rating);
+
 
                                 return data.responseText;
                             });
@@ -514,6 +518,7 @@ define([
                 $el.append($newDoc);
                 //this.getRating(model);
                 this.getBootstrapRating(model)
+
                 var selector="rating-input-id-"+model.cid;
                 $("#"+selector).on('rating:change', function(event, value, caption) {
                    var cid = event.target.getAttribute('select-data-id');
@@ -523,27 +528,27 @@ define([
                    var docreferenceid = $result.find('.document-reference').text();
                    var username = ($('.navbar-username').text()).trim();
                    var oriRating =  $("#"+selector).rating().val();
-                   console.log('original rating'+oriRating)
-                    var urating = new userrating({"username": username,"docreferenceid": docreferenceid,"rating": Number(value)});
-                    urating.save({}, {
-                        success: function (model, respose, options) {
-                            console.log(response.status);
-                            $("#"+selector).rating("refresh", {disabled:true, showClear:false});
-                        },
-                        error: function (model, xhr, options) {
-                        console.log('return:'+xhr.status);
-                            if (xhr.status==201)
-                            {
-                              $("#"+selector).rating("refresh", {disabled:true, showClear:false});
-                            }else{
-                              $("#"+selector).rating("update",Number(oriRating));
-                              $("#"+selector).rating("refresh", {disabled:true, showClear:false});
-                              alert("You Rated this document before, only one Rating for one document!");
-                            }
+                   //console.log('original rating'+oriRating)
+                   //console.log('new Rating'+Number(value))
+                   var urating = new userrating({"username": username,"docreferenceid": docreferenceid,"rating": Number(oriRating)});
+                     urating.save({}, {
+                                        success: function (model, respose, options) {
+                                            //console.log(response.status);
+                                            $("#"+selector).rating("refresh", {disabled:true, showClear:false});
+                                        },
+                                        error: function (model, xhr, options) {
+                                        //console.log('return:'+xhr.status);
+                                            if (xhr.status==200)
+                                            {
+                                              $("#"+selector).rating("refresh", {disabled:true, showClear:false});
+                                            }else{
+                                              $("#"+selector).rating("update",Number(oriRating));
+                                              $("#"+selector).rating("refresh", {disabled:true, showClear:false});
+                                            }
+                                        }
+                                        });
 
 
-                        }
-                    });
                 });
         },
 

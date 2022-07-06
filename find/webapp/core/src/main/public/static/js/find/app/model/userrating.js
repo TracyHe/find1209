@@ -26,6 +26,7 @@ return Backbone.Model.extend({
             return "Invalid username supplied."
         }
     },
+
     urlRoot: '../api/public/rating'
 });
 });

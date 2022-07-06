@@ -38,4 +38,5 @@ public class RatingController {
                     "Rating Successfully",  HttpStatus.CREATED);
         }
     }
+
 }
