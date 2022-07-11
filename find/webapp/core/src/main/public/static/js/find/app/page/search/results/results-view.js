@@ -479,7 +479,7 @@ define([
                                 url: "../api/public/rating?docreferenceid="+model.get('url'),
                                 async: false
                             }).complete(function(data) {
-                                var rating=parseInt(data.responseText);
+                                var rating=parseFloat(data.responseText).toFixed(2);
 
                                 var selector="rating-input-id-"+model.cid;
 
@@ -530,7 +530,7 @@ define([
                    var oriRating =  $("#"+selector).rating().val();
                    //console.log('original rating'+oriRating)
                    //console.log('new Rating'+Number(value))
-                   var urating = new userrating({"username": username,"docreferenceid": docreferenceid,"rating": Number(oriRating)});
+                   var urating = new userrating({"username": username,"docreferenceid": docreferenceid,"rating": parseFloat(oriRating).toFixed(2)});
                      urating.save({}, {
                                         success: function (model, respose, options) {
                                             //console.log(response.status);
@@ -542,7 +542,7 @@ define([
                                             {
                                               $("#"+selector).rating("refresh", {disabled:true, showClear:false});
                                             }else{
-                                              $("#"+selector).rating("update",Number(oriRating));
+                                              $("#"+selector).rating("update",parseFloat(oriRating).toFixed(2));
                                               $("#"+selector).rating("refresh", {disabled:true, showClear:false});
                                             }
                                         }
